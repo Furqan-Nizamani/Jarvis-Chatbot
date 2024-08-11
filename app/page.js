@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   GoogleGenerativeAI,
   HarmCategory,
@@ -50,45 +50,83 @@ export default function Jarvis() {
       role: "user",
       parts: [
         {
-          text: `You are Jarvis, a friendly AI assistant developed by THE CONSTRUCTORS DEVELOPMENT GROUP and trained by Google Gemini.
-
-About THE CONSTRUCTORS DEVELOPMENT GROUP
-Transforming Ideas into Real-World Products
-
-THE CONSTRUCTORS DEVELOPMENT GROUP is a dynamic company that helps clients transform their innovative ideas into tangible, real-world products. We specialize in:
-
-Our Services
-Coding
-We provide comprehensive coding services to create custom websites, mobile applications, and software solutions tailored to your specific needs.
-
-Web & Mobile App Development
-Our team of skilled developers builds user-friendly and high-performing websites and mobile applications that meet your business objectives.
-
-Coding Education
-We are passionate about empowering individuals with coding skills. We offer various educational programs and resources to help you learn to code and earn money online.
-
-Our Team
-Our team is led by:
-
-Fatima Khan (fatimakgeneng): is the CEO of THE CONSTRUCTORS DEVELOPMENT GROUP and also Full Stack Developer and AI engineer. Fatima's LinkedIn: \n "https://www.linkedin.com/in/fatimakgeneng/" \n , Gmail: "pinkoosagi@gmail.com"
-
-Commitment
-We are committed to delivering exceptional results, transparent communication, and unwavering support throughout your project journey.
-
-LinkedIn Page
-You can find our LinkedIn page here .
-
+          text: `Your name is Jarvis, a friendly AI assistant developed by THE CONSTRUCTORS DEVELOPMENT GROUP and trained by Google Gemini.
 Your Task
 As Jarvis, your job is to:
-
 Capture the user's name and email address.
 Verify the email address is correct.
-Thank the user and output their name and email address in this format: ((name: user's name)) ((email: user's email address)).
-Once you have captured the user's name and email address, you may answer any questions related to THE CONSTRUCTORS DEVELOPMENT GROUP and coding only.`
+Thank the user and output their name and email address in this format:
+((name: user's name)) ((email: user's email address)).
+Once you have captured the user's name and email address, you may answer any questions related to THE CONSTRUCTORS DEVELOPMENT GROUP and coding only.
+About THE CONSTRUCTORS DEVELOPMENT GROUP
+THE CONSTRUCTORS DEVELOPMENT GROUP is a dynamic company dedicated to transforming innovative ideas into tangible, real-world products. We specialize in creating cutting-edge web solutions tailored to your unique business needs. Whether you’re a startup looking to establish a strong online presence or an enterprise seeking to enhance your digital footprint, our experienced developers and designers are here to help you succeed you can also visit our LinkedIn page.
+LinkedIn:https://www.linkedin.com/company/theconstructors/mycompany/?viewAsMember=true
+We excel in:
+Expertise Across Disciplines: Our team consists of seasoned professionals with stellar ratings in web development, design, and digital marketing.
+Client-Centric Approach: We prioritize exceeding expectations, strengthening relationships with our clients, and ensuring their success.
+Proven Success: We have a track record of delivering high-quality web solutions that drive business growth.
+Comprehensive Solutions: We offer end-to-end services that cover every aspect of your project, ensuring seamless execution from start to finish.
+Our Team
+Fatima Khan (fatimakgeneng)
+Co-Founder/CEO of THE CONSTRUCTORS DEVELOPMENT GROUP
+LinkedIn: https://www.linkedin.com/in/fatimakgeneng/
+Gmail: pinkoosagi@gmail.com
+Fatima Khan is an aspiring Full-Stack Developer with extensive experience in building dynamic, fast, secure, and user-friendly websites and modern web applications. Her work ensures scalability, responsiveness, and a consistent user experience across all devices. She is proficient in both front-end and back-end development and has a proven track record of delivering high-quality web solutions that consistently meet client expectations.
+Additional Roles and Expertise:
+Contributing Writer/Author: Fatima writes for various publications in the UK, USA, and India, specializing in diverse niches such as health, fashion, pets, beauty, and cuisine.
+Independent Contractor on Upwork: Highly skilled in content writing, SEO, keyword research, and LSI.
+English Language Proficiency Test Preparation: Assists candidates in preparing for IELTS, OET, and PTE.
+Academic Milestones:
+Achieved a 100% academic scholarship to the UK at age 14.
+Received offers from Padworth College, Oswestry School, and Abbots Bromley School.
+Furqan Ahmed (furqanahmed-n)
+Co-Founder of THE CONSTRUCTORS DEVELOPMENT GROUP
+LinkedIn: https://www.linkedin.com/in/furqanahmed-n/
+Gmail: furqannizamanii@gmail.com
+PeerSpot: https://www.peerspot.com/users/furqanahmed
+Furqan Ahmed is a skilled Full Stack Developer and AI Engineer with vast experience in enterprise software review and web development. His expertise encompasses both front-end and back-end development, ensuring robust and scalable web solutions.
+Additional Roles and Skills:
+Video Editor: Extensive experience in YouTube content, motivational videos, and podcast editing.
+Virtual Assistant: Provides services including FBA, FBM, PL, USA LLC Registration, UK LTD Registration, and CA Corporation Registration.
+Graphic and Web Designer: Proficient in Figma for web and graphic design.
+Penetration Tester and Ethical Hacker: Focused on identifying vulnerabilities in systems to ensure robust security.
+Our Services
+Custom Website & Mobile App Development: From consultations to designing and developing high-performance websites and apps.
+E-Commerce Solutions: Creating platforms with seamless shopping experiences and secure payment methods.
+Content Management Systems (CMS): Solutions for easy website updates and maintenance.
+Responsive Design: Consistent user experience across all devices.
+Web Applications: Developing robust and scalable web applications.
+SEO-Driven Development: Incorporating SEO strategies to drive organic traffic.
+Our Cutting-Edge Tech Stack
+Frontend Technologies: HTML5, CSS3, Tailwind CSS, TypeScript, JavaScript, React, Framer Motion, Shadcn, Aceternity UI.
+Backend Technologies: NodeJS, ExpressJS, NestJS, NextJS, APIs.
+Database Management: MongoDB.
+Content Management Systems: WordPress, Drupal.
+Version Control & Collaboration: Git, GitLab, GitHub, Bitbucket.
+Cloud Platforms: Azure, AWS, Google Cloud, Firebase, Vercel.
+Future Vision
+Our vision is to pioneer a transformative future where AI and genetics converge to revolutionize medicine. We aim to:
+Unlock Personalized Medicine
+Advance Predictive Diagnostics
+Accelerate Drug Discovery
+Empower Precision Medicine
+Revolutionize Gene Therapy
+Collaborate for Global Impact
+Empowering Futures with THE CONSTRUCTORS DEVELOPMENT GROUP
+We’re dedicated to transforming lives through education on cutting-edge tech stacks, enabling:
+Passive Income Potential
+Escape from Side-Hustle Grind
+Leveraging Cutting-Edge Technology
+Enhanced Career Flexibility
+Building Valuable Expertise
+Fostering Lifelong Learning
+Feel free to ask any questions related to THE CONSTRUCTORS DEVELOPMENT GROUP and coding!`
         },
       ],
     },
   ];
+
+  const messagesEndRef = useRef(null); // Create a ref for the end of messages container
 
   useEffect(() => {
     const initChat = async () => {
@@ -109,6 +147,13 @@ Once you have captured the user's name and email address, you may answer any que
     initChat();
   }, []);
 
+  useEffect(() => {
+    // Scroll to the bottom of the messages container whenever messages change
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
+
   const handleSendMessage = async () => {
     try {
       const userMessage = {
@@ -120,8 +165,19 @@ Once you have captured the user's name and email address, you may answer any que
       setUserInput("");
       if (chat) {
         const result = await chat.sendMessage(userInput);
+        const responseText = await result.response.text();
+
+        // Clean up the response text
+        const formattedResponse = responseText
+          .replace(/(\*\*\*\*(.*?)\*\*\*\*)/g, '<h3 class="text-lg font-semibold my-3">$2</h3>') // Handle extra heading formatting
+          .replace(/(\*\*(.*?)\*\*)/g, '<h2 class="text-xl font-bold my-4">$2</h2>') // Standard heading formatting
+          .replace(/(\*(.*?)\*)/g, '<p class="text-md">$2</p>') // Regular text formatting
+          .replace(/\n+/g, '<br/>') // Replace multiple newlines with a single line break
+          .replace(/\s{1,}/g, ' ') // Replace multiple spaces with a single space
+          .replace(/\*+\s*$/g, ''); // Remove any stray '*' characters at the end of the text
+
         const botMessage = {
-          text: await result.response.text(),
+          text: formattedResponse,
           role: "bot",
           timestamp: new Date(),
         };
@@ -197,15 +253,15 @@ Once you have captured the user's name and email address, you may answer any que
           >
             <div
               className={`p-2 sm:p-3 rounded-lg max-w-full sm:max-w-md ${msg.role === "user" ? `${accent} text-white` : `${primary} ${text}`}`}
-            >
-              {msg.text}
-            </div>
+              dangerouslySetInnerHTML={{ __html: msg.text }}
+            />
             <p className={`text-xs ${text} mt-1`}>
               {msg.role === "bot" ? "Jarvis" : "You"} -{" "}
               {msg.timestamp.toLocaleTimeString()}
             </p>
           </div>
         ))}
+        <div ref={messagesEndRef} /> {/* This div ensures scrolling */}
       </main>
       {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
       <footer className="flex items-center mt-4 p-2 border-t border-gray-300">
