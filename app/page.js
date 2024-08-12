@@ -14,7 +14,7 @@ export default function Jarvis() {
   const [theme, setTheme] = useState("light");
   const [error, setError] = useState(null);
 
-  const API_KEY = "AIzaSyCIkKjH2wVRh--0gBUI25_N3zw_wSQJ7cA";
+  const API_KEY = "AIzaSyBZi9xz9rVxjQJ8iWNR565Ge-7agnDHYRc";
   const MODEL_NAME = "gemini-1.5-flash";
 
   const genAI = new GoogleGenerativeAI(API_KEY);
